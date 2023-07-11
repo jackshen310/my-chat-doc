@@ -247,19 +247,20 @@
           }); // 输出错误信息
       });
 
-      // 获取包含img元素的div元素
-      //   var container = document.getElementById("chat-body");
-
-      //   // 使用事件委托来监听img元素的点击事件
-      //   container.addEventListener("click", function (event) {
-      //     // 确保点击的是img元素
-      //     if (event.target.nodeName === "IMG") {
-      //       // 处理img元素的点击事件
-      //       console.log("Clicked on:", event.target.src);
-      //       // 创建新窗口并打开图片
-      //       window.open(event.target.src, "_blank");
-      //     }
-      //   });
+      document.querySelector('#create_index').addEventListener('click', () => {
+        showLoading();
+        fetch('/create_index', {
+          method: 'POST',
+        })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          }).finally(() => {
+            hideLoading();
+          })
+      })
     };
 
     function showLoading() {
@@ -268,12 +269,15 @@
     function hideLoading() {
       document.querySelector("#loading").style.display = "none";
     }
+
+    
   </script>
 
   <body>
     <div class="chat-container">
       <div class="chat-header">
-        <h2>ChatDoc</h2>
+        <span>ChatDoc</span>
+        <button id="create_index">初始化</button>
       </div>
       <div id="loading" style="display: none">
         <div class="loader"></div>
